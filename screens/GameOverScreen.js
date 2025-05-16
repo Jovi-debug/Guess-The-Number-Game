@@ -1,24 +1,56 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import CustomButton from '../components/UI/CustomButton';
+import { View, Text, Image, StyleSheet } from 'react-native';
+import Title from '../components/UI/Title';
+import PrimaryButton from '../components/UI/PrimaryButton';
+import Colors from '../constants/colors';
 
-const GameOverScreen = ({ roundsNumber, userNumber, onStartNewGame }) => {
+function GameOverScreen({ roundsNumber, userNumber, onStartNewGame }) {
   return (
-    <LinearGradient colors={['#4e0329', '#ddb52f']} style={styles.root}>
-      <Text style={styles.title}>🎉 Congrats!</Text>
-      <Text style={styles.result}>
-        You guessed {userNumber} in {roundsNumber} tries!
+    <View style={styles.screen}>
+      <Title>Game Over!</Title>
+      <View style={styles.imageContainer}>
+        <Image
+          source={require('../assets/Images/successBG.jpg')}
+          style={styles.image}
+        />
+      </View>
+      <Text style={styles.summaryText}>
+        Your phone needed <Text style={styles.highlight}>{roundsNumber}</Text> rounds to guess the number{' '}
+        <Text style={styles.highlight}>{userNumber}</Text>.
       </Text>
-      <CustomButton onPress={onStartNewGame}>Start New Game</CustomButton>
-    </LinearGradient>
+      <PrimaryButton onPress={onStartNewGame}>Start New Game</PrimaryButton>
+    </View>
   );
-};
+}
 
 export default GameOverScreen;
 
 const styles = StyleSheet.create({
-  root: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-  title: { fontSize: 30, color: 'white', marginBottom: 20 },
-  result: { fontSize: 18, color: 'white', marginBottom: 20 },
+  screen: {
+    flex: 1,
+    padding: 24,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  imageContainer: {
+    width: 300,
+    height: 300,
+    borderRadius: 150,
+    borderWidth: 3,
+    borderColor: Colors.primary500,
+    overflow: 'hidden',
+    margin: 36,
+  },
+  image: {
+    width: '100%',
+    height: '100%',
+  },
+  summaryText: {
+    fontSize: 24,
+    textAlign: 'center',
+    marginBottom: 24,
+  },
+  highlight: {
+    color: Colors.primary500,
+    fontWeight: 'bold',
+  },
 });
