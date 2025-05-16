@@ -9,14 +9,15 @@ export default Card;
 
 const styles = StyleSheet.create({
   card: {
+    padding: 16,
+    marginTop: 36,
+    marginHorizontal: 24,
     backgroundColor: '#3b021f',
-    padding: 20,
-    borderRadius: 12,
-    elevation: 5,
+    borderRadius: 8,
+    elevation: 4,
     shadowColor: 'black',
-    shadowOpacity: 0.3,
-    shadowOffset: { width: 0, height: 3 },
+    shadowOffset: { width: 0, height: 2 },
     shadowRadius: 6,
-    marginVertical: 10,
+    shadowOpacity: 0.25,
   },
 });

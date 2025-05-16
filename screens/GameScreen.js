@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Alert, ScrollView, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import CustomButton from '../assets/components/CustomButton';
-import Card from '../assets/components/Card';
+import CustomButton from '../assets/components/UI/CustomButton';
+import Card from '../assets/components/UI/Card';
 
 const generateRandomBetween = (min, max, exclude) => {
   const rndNum = Math.floor(Math.random() * (max - min)) + min;

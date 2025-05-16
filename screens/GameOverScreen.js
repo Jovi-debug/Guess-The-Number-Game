@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import CustomButton from '../assets/components/CustomButton';
+import CustomButton from '../assets/components/UI/CustomButton';
 
 const GameOverScreen = ({ roundsNumber, userNumber, onStartNewGame }) => {
   return (
