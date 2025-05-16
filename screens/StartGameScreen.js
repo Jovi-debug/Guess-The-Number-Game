@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Alert, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import CustomButton from '../assets/components/UI/CustomButton';
-import Card from '../assets/components/UI/Card';
+import CustomButton from '../components/UI/CustomButton';
+import Card from '../components/UI/Card';
 
 const StartGameScreen = ({ onPickNumber }) => {
   const [enteredNumber, setEnteredNumber] = useState('');
