@@ -1,20 +1,40 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import StartGameScreen from './screens/StartGameScreen';
+import GameScreen from './screens/GameScreen';
+import GameOverScreen from './screens/GameOverScreen';
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+  const [userNumber, setUserNumber] = useState();
+  const [gameIsOver, setGameIsOver] = useState(false);
+  const [guessRounds, setGuessRounds] = useState(0);
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  const pickNumberHandler = (pickedNumber) => {
+    setUserNumber(pickedNumber);
+    setGameIsOver(false);
+  };
+
+  const gameOverHandler = (numRounds) => {
+    setGameIsOver(true);
+    setGuessRounds(numRounds);
+  };
+
+  const startNewGameHandler = () => {
+    setUserNumber(null);
+    setGuessRounds(0);
+    setGameIsOver(false);
+  };
+
+  let screen = <StartGameScreen onPickNumber={pickNumberHandler} />;
+
+  if (userNumber && !gameIsOver) {
+    screen = <GameScreen userNumber={userNumber} onGameOver={gameOverHandler} />;
+  } else if (gameIsOver) {
+    screen = <GameOverScreen
+      userNumber={userNumber}
+      roundsNumber={guessRounds}
+      onStartNewGame={startNewGameHandler}
+    />;
+  }
+
+  return screen;
+}
