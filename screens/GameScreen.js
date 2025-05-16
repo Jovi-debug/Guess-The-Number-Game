@@ -1,11 +1,20 @@
 import { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Alert, FlatList } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Alert,
+  FlatList,
+  Pressable,
+} from 'react-native';
 import Title from '../components/UI/Title';
 import NumberContainer from '../components/Game/NumberContainer';
 import PrimaryButton from '../components/UI/PrimaryButton';
 import Card from '../components/UI/Card';
 import GuessListItem from '../components/Game/GuessListItem';
 import Colors from '../constants/colors';
+import PauseModal from '../components/Modal/PauseModal';
+import { Ionicons } from '@expo/vector-icons';
 
 function generateRandomBetween(min, max, exclude) {
   const rndNum = Math.floor(Math.random() * (max - min)) + min;
@@ -16,13 +25,15 @@ function generateRandomBetween(min, max, exclude) {
   }
 }
 
-function GameScreen({ userNumber, onGameOver }) {
+function GameScreen({ userNumber, onGameOver, onGoHome }) {
   const initialGuess = generateRandomBetween(1, 100, userNumber);
   const [currentGuess, setCurrentGuess] = useState(initialGuess);
   const [guessRounds, setGuessRounds] = useState([initialGuess]);
 
   const [minBoundary, setMinBoundary] = useState(1);
   const [maxBoundary, setMaxBoundary] = useState(100);
+
+  const [pauseModalVisible, setPauseModalVisible] = useState(false);
 
   useEffect(() => {
     if (currentGuess === userNumber) {
@@ -56,9 +67,30 @@ function GameScreen({ userNumber, onGameOver }) {
     setGuessRounds((prevGuessRounds) => [newRndNumber, ...prevGuessRounds]);
   }
 
+  function openPauseModal() {
+    setPauseModalVisible(true);
+  }
+
+  function closePauseModal() {
+    setPauseModalVisible(false);
+  }
+
+  function goHomeHandler() {
+    setPauseModalVisible(false);
+    onGoHome();
+  }
+
   return (
     <View style={styles.screen}>
-      <Title>Opponent's Guess</Title>
+      <View style={styles.header}>
+        <Title>Opponent's Guess</Title>
+        <Pressable
+          onPress={openPauseModal}
+          style={({ pressed }) => pressed && { opacity: 0.5 }}
+        >
+          <Ionicons name="pause" size={30} color="dimgray" />
+        </Pressable>
+      </View>
       <NumberContainer>{currentGuess}</NumberContainer>
       <Card>
         <Text style={styles.instructionText}>Higher or Lower?</Text>
@@ -87,6 +119,11 @@ function GameScreen({ userNumber, onGameOver }) {
           keyExtractor={(item) => item.toString()}
         />
       </View>
+      <PauseModal
+        visible={pauseModalVisible}
+        onClose={closePauseModal}
+        onGoHome={goHomeHandler}
+      />
     </View>
   );
 }
@@ -98,6 +135,14 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 24,
     alignItems: 'center',
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+    paddingHorizontal: 20,
+    marginBottom: 20,
   },
   instructionText: {
     color: Colors.accent500,
