@@ -88,7 +88,7 @@ function GameScreen({ userNumber, onGameOver, onGoHome }) {
           onPress={openPauseModal}
           style={({ pressed }) => pressed && { opacity: 0.5 }}
         >
-          <Ionicons name="pause" size={30} color="#daa520" />
+          <Ionicons name="pause" size={30} color="darkslategrey" style={{borderWidth: 2}} />
         </Pressable>
       </View>
       <NumberContainer>{currentGuess}</NumberContainer>

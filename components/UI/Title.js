@@ -11,8 +11,11 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: Colors.background,
+    color: Colors.white,
     textAlign: 'center',
     padding: 12,
+    borderWidth: 2,
+    borderColor: Colors.white,
+    marginTop: 10,
   },
 });
