@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   imageContainer: {
     width: deviceWidth < 380 ? 150 : 300,
     height: deviceWidth < 380 ? 150 : 300,
-    borderRadius: 150,
+    borderRadius: deviceWidth < 380 ? 75 : 300,
     borderWidth: 3,
     borderColor: Colors.primary500,
     overflow: 'hidden',
@@ -50,6 +50,8 @@ const styles = StyleSheet.create({
   },
   summaryText: {
     fontSize: 24,
+    fontWeight: '500',
+    fontStyle: "italic",
     textAlign: 'center',
     marginBottom: 24,
   },
